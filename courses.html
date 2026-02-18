@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - GenX College</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ===== PROFESSIONAL BLUE COLOR SCHEME ===== */
+        :root {
+            --primary: #1e4b8a;        /* Deep Navy Blue */
+            --primary-light: #2e6ab3;   /* Medium Blue */
+            --primary-dark: #0a2a4a;     /* Dark Navy */
+            --secondary: #4a90e2;        /* Sky Blue */
+            --accent: #64b5f6;           /* Light Blue */
+            --gradient-1: linear-gradient(135deg, #1e4b8a 0%, #4a90e2 100%);
+            --gradient-2: linear-gradient(135deg, #0a2a4a 0%, #1e4b8a 100%);
+            --bg-light: #f0f7ff;         /* Very Light Blue */
+            --bg-white: #ffffff;          /* White */
+            --text-dark: #1a2b3c;         /* Dark Blue-Gray */
+            --text-light: #5a6b7c;        /* Medium Gray-Blue */
+            --shadow: 0 10px 30px rgba(30, 75, 138, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--gradient-2);
+            padding: 12px 0;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info span {
+            color: white;
+            margin-right: 25px;
+            font-size: 14px;
+        }
+
+        .contact-info i {
+            margin-right: 8px;
+            color: var(--accent);
+        }
+
+        .login-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 8px 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .login-links a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-2px);
+        }
+
+        .login-links i {
+            margin-right: 5px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .estd {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-1);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: var(--gradient-1);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            color: white;
+        }
+
+        /* Course Cards */
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(30, 75, 138, 0.2);
+            border-color: var(--primary-light);
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-1);
+        }
+
+        .course-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .course-icon i {
+            font-size: 30px;
+            color: white;
+        }
+
+        /* Filter Buttons */
+        .filter-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .filter-btn.active {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-btn:not(.active) {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(30, 75, 138, 0.2);
+        }
+
+        .filter-btn:not(.active):hover {
+            background: var(--bg-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gradient-2);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-col p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 10px;
+        }
+
+        .footer-col p i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .courses-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar .container {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .contact-info span {
+                display: block;
+                margin: 5px 0;
+            }
+            
+            .login-links a {
+                margin: 0 5px;
+            }
+            
+            .navbar .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-section {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 0 20px;
+            }
+            
+            .filter-btn {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+   
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>GenX College</h1>
+                <div class="estd">Est. 1985 | NAAC A+ Grade</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="courses.html" class="active">Courses</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+     <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+                <span><i class="fas fa-envelope"></i> info@genxcollege.edu</span>
+                <span><i class="fas fa-map-marker-alt"></i> 123 Education Street, City</span>
+            </div>
+            <div class="login-links">
+                <a href="studentlogin.html"><i class="fas fa-user-graduate"></i> Student Login</a>
+                <a href="teacherlogin.html"><i class="fas fa-chalkboard-teacher"></i> Teacher Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Our Courses</h1>
+            <p>Choose from 30+ undergraduate and postgraduate programs</p>
+        </div>
+    </div>
+
+    <!-- Courses Grid -->
+    <main style="padding: 80px 0; background: var(--bg-light);">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <button class="filter-btn active">All Courses</button>
+                <button class="filter-btn">Undergraduate</button>
+                <button class="filter-btn">Postgraduate</button>
+                <button class="filter-btn">Doctoral</button>
+            </div>
+
+            <div class="courses-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px; color: var(--primary-dark);">Computer Science</h3>
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 15px;">B.Sc / M.Sc</p>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Learn programming, AI, machine learning, and modern software development.</p>
+                    <div style="display: flex; justify-content: space-between; color: var(--text-light); font-size: 14px;">
+                        <span><i class="far fa-clock"></i> 3 Years</span>
+                        <span><i class="fas fa-users"></i> 60 Seats</span>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px; color: var(--primary-dark);">Business Admin</h3>
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 15px;">BBA / MBA</p>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Management, marketing, finance, and entrepreneurship skills.</p>
+                    <div style="display: flex; justify-content: space-between; color: var(--text-light); font-size: 14px;">
+                        <span><i class="far fa-clock"></i> 3 Years</span>
+                        <span><i class="fas fa-users"></i> 120 Seats</span>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px; color: var(--primary-dark);">Physics</h3>
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 15px;">B.Sc / M.Sc</p>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Quantum mechanics, astrophysics, and advanced material science.</p>
+                    <div style="display: flex; justify-content: space-between; color: var(--text-light); font-size: 14px;">
+                        <span><i class="far fa-clock"></i> 3 Years</span>
+                        <span><i class="fas fa-users"></i> 50 Seats</span>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px; color: var(--primary-dark);">English Literature</h3>
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 15px;">B.A / M.A</p>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Classic and modern literature, creative writing, and linguistics.</p>
+                    <div style="display: flex; justify-content: space-between; color: var(--text-light); font-size: 14px;">
+                        <span><i class="far fa-clock"></i> 3 Years</span>
+                        <span><i class="fas fa-users"></i> 40 Seats</span>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px; color: var(--primary-dark);">Mathematics</h3>
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 15px;">B.Sc / M.Sc</p>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Pure and applied mathematics, statistics, and data analysis.</p>
+                    <div style="display: flex; justify-content: space-between; color: var(--text-light); font-size: 14px;">
+                        <span><i class="far fa-clock"></i> 3 Years</span>
+                        <span><i class="fas fa-users"></i> 50 Seats</span>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px; color: var(--primary-dark);">Biotechnology</h3>
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 15px;">B.Sc / M.Sc</p>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Genetic engineering, molecular biology, and research methods.</p>
+                    <div style="display: flex; justify-content: space-between; color: var(--text-light); font-size: 14px;">
+                        <span><i class="far fa-clock"></i> 3 Years</span>
+                        <span><i class="fas fa-users"></i> 40 Seats</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>GenX College</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Education Street, City, State 12345</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@genxcollege.edu</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="academics.html">Academics</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Student Corner</h4>
+                    <ul>
+                        <li><a href="studentlogin.html">Student Login</a></li>
+                        <li><a href="#">Fee Payment</a></li>
+                        <li><a href="#">Results</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Teacher Corner</h4>
+                    <ul>
+                        <li><a href="teacherlogin.html">Teacher Login</a></li>
+                        <li><a href="#">Attendance</a></li>
+                        <li><a href="#">Marks Entry</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 GenX College. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for education</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

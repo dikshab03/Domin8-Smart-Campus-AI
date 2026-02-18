@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Login - GenX College</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+        
+        .login-header i {
+            font-size: 60px;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 50%;
+        }
+        
+        .login-header h2 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .login-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .login-form {
+            padding: 40px;
+        }
+        
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: #f0f0f0;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        
+        .role-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .role-btn i {
+            font-size: 16px;
+        }
+        
+        .role-btn.active {
+            background: white;
+            color: #1e3c72;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1e3c72;
+            font-size: 18px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .input-group input:focus {
+            border-color: #1e3c72;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+        
+        .input-group label {
+            position: absolute;
+            left: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            transition: all 0.3s;
+            pointer-events: none;
+            font-size: 16px;
+        }
+        
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 12px;
+            background: white;
+            padding: 0 5px;
+            color: #1e3c72;
+        }
+        
+        .input-group input::placeholder {
+            color: transparent;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .remember input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #1e3c72;
+        }
+        
+        .forgot-link {
+            color: #1e3c72;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .forgot-link:hover {
+            color: #2a5298;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(30, 60, 114, 0.4);
+        }
+        
+        .demo-credentials {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            text-align: center;
+            border: 2px dashed #1e3c72;
+        }
+        
+        .demo-credentials h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .credential-item.faculty {
+            border-left-color: #27ae60;
+        }
+        
+        .credential-item.hod {
+            border-left-color: #f39c12;
+        }
+        
+        .credential-item.admin {
+            border-left-color: #e74c3c;
+        }
+        
+        .credential-item i {
+            font-size: 20px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .credential-item.faculty i {
+            color: #27ae60;
+        }
+        
+        .credential-item.hod i {
+            color: #f39c12;
+        }
+        
+        .credential-item.admin i {
+            color: #e74c3c;
+        }
+        
+        .credential-details {
+            flex: 1;
+        }
+        
+        .credential-details strong {
+            display: block;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .credential-details span {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .back-home:hover {
+            color: #1e3c72;
+        }
+        
+        .back-home i {
+            margin-right: 5px;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+            padding: 10px;
+            background: #fdeaea;
+            border-radius: 5px;
+        }
+        
+        @media (max-width: 480px) {
+            .login-header {
+                padding: 30px;
+            }
+            
+            .login-form {
+                padding: 30px 20px;
+            }
+            
+            .role-btn span {
+                display: none;
+            }
+            
+            .role-btn i {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <h2>Teacher Login</h2>
+            <p>Access your teaching portal</p>
+        </div>
+        
+        <div class="login-form">
+            <div class="role-selector">
+                <button class="role-btn active" onclick="setRole('faculty')" id="facultyBtn">
+                    <i class="fas fa-user"></i>
+                    <span>Faculty</span>
+                </button>
+                <button class="role-btn" onclick="setRole('hod')" id="hodBtn">
+                    <i class="fas fa-user-tie"></i>
+                    <span>HOD</span>
+                </button>
+                <button class="role-btn" onclick="setRole('admin')" id="adminBtn">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Admin</span>
+                </button>
+            </div>
+            
+            <form id="teacherLoginForm" onsubmit="handleTeacherLogin(event)">
+                <div class="input-group">
+                    <i class="fas fa-id-card"></i>
+                    <input type="text" id="teacherId" placeholder=" " required>
+                    <label for="teacherId" id="idLabel">Faculty ID</label>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder=" " required>
+                    <label for="password">Password</label>
+                </div>
+                
+                <div class="remember-forgot">
+                    <label class="remember">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login to Portal
+                </button>
+                
+                <div id="errorMsg" class="error-message">
+                    Invalid credentials! Please check your ID and password.
+                </div>
+            </form>
+            
+            <div class="demo-credentials">
+                <h3> Demo Login Credentials</h3>
+                
+                <div class="credential-item faculty">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <div class="credential-details">
+                        <strong>Faculty: FAC001 / teacher123</strong>
+                        <span>Access to attendance, marks entry, assignments</span>
+                    </div>
+                </div>
+                
+                <div class="credential-item hod">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="credential-details">
+                        <strong>HOD: HOD001 / hod123</strong>
+                        <span>Access to department reports, approvals</span>
+                    </div>
+                </div>
+                
+                <div class="credential-item admin">
+                    <i class="fas fa-user-cog"></i>
+                    <div class="credential-details">
+                        <strong>Admin: ADM001 / admin123</strong>
+                        <span>Full system access, user management</span>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let currentRole = 'faculty';
+        
+        function setRole(role) {
+            currentRole = role;
+            
+            // Update active button
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(role + 'Btn').classList.add('active');
+            
+            // Update label
+            const idLabel = document.getElementById('idLabel');
+            if (role === 'faculty') {
+                idLabel.textContent = 'Faculty ID';
+            } else if (role === 'hod') {
+                idLabel.textContent = 'HOD ID';
+            } else if (role === 'admin') {
+                idLabel.textContent = 'Admin ID';
+            }
+        }
+        
+        function handleTeacherLogin(event) {
+            event.preventDefault();
+            
+            const teacherId = document.getElementById('teacherId').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            
+            // Hide previous error
+            errorMsg.style.display = 'none';
+            
+            // Check credentials based on role
+            let isValid = false;
+            let dashboardPage = '';
+            
+            if (currentRole === 'faculty') {
+                if (teacherId === 'FAC001' && password === 'teacher123') {
+                    isValid = true;
+                    dashboardPage = 'teacherdashboard.html?role=faculty&id=FAC001';
+                } else if (teacherId === 'FAC002' && password === 'teacher123') {
+                    isValid = true;
+                    dashboardPage = 'teacher-dashboard.html?role=faculty&id=FAC002';
+                }
+            } 
+            else if (currentRole === 'hod') {
+                if (teacherId === 'HOD001' && password === 'hod123') {
+                    isValid = true;
+                    dashboardPage = 'teacherdashboard.html?role=hod&id=HOD001';
+                } else if (teacherId === 'HOD002' && password === 'hod123') {
+                    isValid = true;
+                    dashboardPage = 'teacher-dashboard.html?role=hod&id=HOD002';
+                }
+            } 
+            else if (currentRole === 'admin') {
+                if (teacherId === 'ADM001' && password === 'admin123') {
+                    isValid = true;
+                    dashboardPage = 'teacherdashboard.html?role=admin&id=ADM001';
+                } else if (teacherId === 'ADM002' && password === 'admin123') {
+                    isValid = true;
+                    dashboardPage = 'teacher-dashboard.html?role=admin&id=ADM002';
+                }
+            }
+            
+            if (isValid) {
+                alert(' Login Successful! Redirecting to dashboard...');
+                window.location.href = dashboardPage;
+            } else {
+                errorMsg.style.display = 'block';
+                // Shake animation for error
+                document.querySelector('.login-container').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.querySelector('.login-container').style.animation = 'slideUp 0.5s';
+                }, 500);
+            }
+        }
+        
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

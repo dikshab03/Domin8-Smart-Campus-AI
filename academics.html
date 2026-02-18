@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academics - GenX College</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ===== PROFESSIONAL BLUE COLOR SCHEME ===== */
+        :root {
+            --primary: #1e4b8a;        /* Deep Navy Blue */
+            --primary-light: #2e6ab3;   /* Medium Blue */
+            --primary-dark: #0a2a4a;     /* Dark Navy */
+            --secondary: #4a90e2;        /* Sky Blue */
+            --accent: #64b5f6;           /* Light Blue */
+            --gradient-1: linear-gradient(135deg, #1e4b8a 0%, #4a90e2 100%);
+            --gradient-2: linear-gradient(135deg, #0a2a4a 0%, #1e4b8a 100%);
+            --bg-light: #f0f7ff;         /* Very Light Blue */
+            --bg-white: #ffffff;          /* White */
+            --text-dark: #1a2b3c;         /* Dark Blue-Gray */
+            --text-light: #5a6b7c;        /* Medium Gray-Blue */
+            --shadow: 0 10px 30px rgba(30, 75, 138, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--gradient-2);
+            padding: 12px 0;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info span {
+            color: white;
+            margin-right: 25px;
+            font-size: 14px;
+        }
+
+        .contact-info i {
+            margin-right: 8px;
+            color: var(--accent);
+        }
+
+        .login-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 8px 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .login-links a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-2px);
+        }
+
+        .login-links i {
+            margin-right: 5px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .estd {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-1);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: var(--gradient-1);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            color: white;
+        }
+
+        /* Tab Buttons */
+        .tab-btn {
+            padding: 15px 30px;
+            border: none;
+            background: var(--bg-white);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-radius: 10px 10px 0 0;
+            color: var(--text-dark);
+            border: 1px solid rgba(30, 75, 138, 0.1);
+            border-bottom: none;
+        }
+
+        .tab-btn:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-1);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 40px;
+            background: var(--bg-white);
+            border-radius: 0 20px 20px 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Program Cards */
+        .program-card {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary-light);
+        }
+
+        .program-card i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .program-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .program-card ul {
+            list-style: none;
+        }
+
+        .program-card ul li {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .program-card ul li i {
+            font-size: 16px;
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: var(--bg-light);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--gradient-1);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(30, 75, 138, 0.1);
+            color: var(--text-light);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(30, 75, 138, 0.05);
+        }
+
+        /* Research Cards */
+        .research-card {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary-light);
+        }
+
+        .research-card i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .research-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+
+        .research-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Download Button */
+        .download-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient-1);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .download-btn i {
+            margin-right: 8px;
+        }
+
+        /* Exam Items */
+        .exam-item {
+            background: var(--bg-white);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+            transition: all 0.3s;
+        }
+
+        .exam-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow);
+        }
+
+        .exam-item p {
+            color: var(--text-light);
+        }
+
+        .exam-item strong {
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gradient-2);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-col p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 10px;
+        }
+
+        .footer-col p i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .programs-grid,
+            .research-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar .container {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .contact-info span {
+                display: block;
+                margin: 5px 0;
+            }
+            
+            .login-links a {
+                margin: 0 5px;
+            }
+            
+            .navbar .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .programs-grid,
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>GenX College</h1>
+                <div class="estd">Est. 1985 | NAAC A+ Grade</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="academics.html" class="active">Academics</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+                <span><i class="fas fa-envelope"></i> info@genxcollege.edu</span>
+                <span><i class="fas fa-map-marker-alt"></i> 123 Education Street, City</span>
+            </div>
+            <div class="login-links">
+                <a href="studentlogin.html"><i class="fas fa-user-graduate"></i> Student Login</a>
+                <a href="teacherlogin.html"><i class="fas fa-chalkboard-teacher"></i> Teacher Login</a>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Academics</h1>
+            <p>Excellence in Teaching and Learning</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main style="padding: 80px 0; background: var(--bg-light);">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            
+            <!-- Tabs Navigation -->
+            <div style="display: flex; gap: 5px; margin-bottom: -1px; flex-wrap: wrap;">
+                <button class="tab-btn active" onclick="showTab('programs')">Programs</button>
+                <button class="tab-btn" onclick="showTab('calendar')">Calendar</button>
+                <button class="tab-btn" onclick="showTab('examinations')">Examinations</button>
+                <button class="tab-btn" onclick="showTab('research')">Research</button>
+            </div>
+
+            <!-- Programs Tab -->
+            <div id="programs" class="tab-content active">
+                <h2 style="font-size: 32px; margin-bottom: 30px; color: var(--primary-dark);">Academic Programs</h2>
+                <div class="programs-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+                    <div class="program-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Undergraduate</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> B.Sc Computer Science</li>
+                            <li><i class="fas fa-check-circle"></i> BBA</li>
+                            <li><i class="fas fa-check-circle"></i> BA English</li>
+                            <li><i class="fas fa-check-circle"></i> B.Com</li>
+                            <li><i class="fas fa-check-circle"></i> B.Sc Physics</li>
+                        </ul>
+                    </div>
+                    <div class="program-card">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>Postgraduate</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> M.Sc Computer Science</li>
+                            <li><i class="fas fa-check-circle"></i> MBA</li>
+                            <li><i class="fas fa-check-circle"></i> MA English</li>
+                            <li><i class="fas fa-check-circle"></i> M.Com</li>
+                            <li><i class="fas fa-check-circle"></i> M.Sc Physics</li>
+                        </ul>
+                    </div>
+                    <div class="program-card">
+                        <i class="fas fa-microscope"></i>
+                        <h3>Doctoral</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> PhD Computer Science</li>
+                            <li><i class="fas fa-check-circle"></i> PhD Management</li>
+                            <li><i class="fas fa-check-circle"></i> PhD Physics</li>
+                            <li><i class="fas fa-check-circle"></i> PhD English</li>
+                            <li><i class="fas fa-check-circle"></i> PhD Mathematics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar Tab -->
+            <div id="calendar" class="tab-content">
+                <h2 style="font-size: 32px; margin-bottom: 30px; color: var(--primary-dark);">Academic Calendar 2024-25</h2>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Event</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                        <tr>
+                            <td>Semester 1 Classes Begin</td>
+                            <td>July 15, 2024</td>
+                            <td>November 30, 2024</td>
+                        </tr>
+                        <tr>
+                            <td>Internal Assessment 1</td>
+                            <td>August 20, 2024</td>
+                            <td>August 25, 2024</td>
+                        </tr>
+                        <tr>
+                            <td>Internal Assessment 2</td>
+                            <td>October 10, 2024</td>
+                            <td>October 15, 2024</td>
+                        </tr>
+                        <tr>
+                            <td>Semester 1 Exams</td>
+                            <td>November 15, 2024</td>
+                            <td>November 30, 2024</td>
+                        </tr>
+                        <tr>
+                            <td>Winter Break</td>
+                            <td>December 1, 2024</td>
+                            <td>December 31, 2024</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Examinations Tab -->
+            <div id="examinations" class="tab-content">
+                <h2 style="font-size: 32px; margin-bottom: 30px; color: var(--primary-dark);">Examination Schedule</h2>
+                <div style="background: var(--bg-white); padding: 30px; border-radius: 15px; border: 1px solid rgba(30, 75, 138, 0.1);">
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="margin-bottom: 20px; color: var(--primary);">Upcoming Exams</h3>
+                        <div class="exam-item">
+                            <p><strong>B.Sc Computer Science (Semester 3)</strong> - November 15, 2024</p>
+                        </div>
+                        <div class="exam-item">
+                            <p><strong>BBA (Semester 3)</strong> - November 16, 2024</p>
+                        </div>
+                        <div class="exam-item">
+                            <p><strong>BA English (Semester 3)</strong> - November 18, 2024</p>
+                        </div>
+                    </div>
+                    <a href="#" class="download-btn"><i class="fas fa-download"></i> Download Full Schedule</a>
+                </div>
+            </div>
+
+            <!-- Research Tab -->
+            <div id="research" class="tab-content">
+                <h2 style="font-size: 32px; margin-bottom: 30px; color: var(--primary-dark);">Research & Publications</h2>
+                <div class="research-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+                    <div class="research-card">
+                        <i class="fas fa-flask"></i>
+                        <h3>Research Centers</h3>
+                        <p>Advanced Computing Lab, Quantum Physics Research Center, Biotechnology Lab</p>
+                    </div>
+                    <div class="research-card">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Publications</h3>
+                        <p>150+ research papers published in 2023-24 in international journals</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>GenX College</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Education Street, City, State 12345</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@genxcollege.edu</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="academics.html">Academics</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Student Corner</h4>
+                    <ul>
+                        <li><a href="studentlogin.html">Student Login</a></li>
+                        <li><a href="#">Fee Payment</a></li>
+                        <li><a href="#">Results</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Teacher Corner</h4>
+                    <ul>
+                        <li><a href="teacherlogin.html">Teacher Login</a></li>
+                        <li><a href="#">Attendance</a></li>
+                        <li><a href="#">Marks Entry</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 GenX College. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for education</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - GenX College</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ===== PROFESSIONAL BLUE COLOR SCHEME ===== */
+        :root {
+            --primary: #1e4b8a;        /* Deep Navy Blue */
+            --primary-light: #2e6ab3;   /* Medium Blue */
+            --primary-dark: #0a2a4a;     /* Dark Navy */
+            --secondary: #4a90e2;        /* Sky Blue */
+            --accent: #64b5f6;           /* Light Blue */
+            --gradient-1: linear-gradient(135deg, #1e4b8a 0%, #4a90e2 100%);
+            --gradient-2: linear-gradient(135deg, #0a2a4a 0%, #1e4b8a 100%);
+            --bg-light: #f0f7ff;         /* Very Light Blue */
+            --bg-white: #ffffff;          /* White */
+            --text-dark: #1a2b3c;         /* Dark Blue-Gray */
+            --text-light: #5a6b7c;        /* Medium Gray-Blue */
+            --shadow: 0 10px 30px rgba(30, 75, 138, 0.15);
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            background: var(--gradient-2);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .student-avatar {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            border: 3px solid white;
+        }
+
+        .student-details h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .student-details p {
+            opacity: 0.9;
+            font-size: 14px;
+            color: white;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 5px;
+            color: white;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-actions a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-actions a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-2px);
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            padding: 30px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(30, 75, 138, 0.2);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon i {
+            font-size: 30px;
+            color: white;
+        }
+
+        .stat-details h3 {
+            font-size: 28px;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .stat-details p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Main Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            font-size: 20px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header h2 i {
+            color: var(--primary);
+        }
+
+        .view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .view-all:hover {
+            color: var(--primary-light);
+            transform: translateX(5px);
+        }
+
+        /* Attendance List */
+        .attendance-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .attendance-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .subject-info h4 {
+            font-size: 16px;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .subject-info p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .attendance-progress {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .progress-bar {
+            width: 150px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        .progress-fill.good {
+            background: var(--success);
+        }
+
+        .progress-fill.warning {
+            background: var(--warning);
+        }
+
+        .progress-fill.danger {
+            background: var(--danger);
+        }
+
+        .attendance-percent {
+            font-weight: 600;
+            min-width: 45px;
+        }
+
+        .attendance-percent.good {
+            color: var(--success);
+        }
+
+        .attendance-percent.warning {
+            color: var(--warning);
+        }
+
+        .attendance-percent.danger {
+            color: var(--danger);
+        }
+
+        /* Schedule List */
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: 15px;
+            transition: all 0.3s;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .schedule-item:hover {
+            background: white;
+            border-color: var(--primary-light);
+        }
+
+        .schedule-time {
+            background: var(--gradient-1);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .schedule-details {
+            flex: 1;
+        }
+
+        .schedule-details h4 {
+            font-size: 16px;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .schedule-details p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .schedule-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-upcoming {
+            background: #e3f2fd;
+            color: var(--primary);
+        }
+
+        .status-ongoing {
+            background: #e8f5e9;
+            color: var(--success);
+        }
+
+        /* Notice List */
+        .notice-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notice-item {
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+        }
+
+        .notice-item:hover {
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .notice-item h4 {
+            font-size: 15px;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .notice-item p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .notice-date {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Quick Links */
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .quick-link {
+            background: var(--bg-light);
+            padding: 20px 15px;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .quick-link:hover {
+            background: var(--gradient-1);
+            transform: translateY(-5px);
+        }
+
+        .quick-link:hover i,
+        .quick-link:hover span {
+            color: white;
+        }
+
+        .quick-link i {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .quick-link span {
+            color: var(--text-dark);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Subjects Grid */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(30, 75, 138, 0.2);
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-1);
+        }
+
+        .subject-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .subject-icon i {
+            font-size: 25px;
+            color: white;
+        }
+
+        .subject-card h3 {
+            font-size: 18px;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .subject-card p {
+            color: var(--text-light);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .subject-teacher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(30, 75, 138, 0.1);
+        }
+
+        .subject-teacher img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-light);
+        }
+
+        .subject-teacher span {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gradient-2);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid,
+            .subjects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid,
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .student-info {
+                flex-direction: column;
+            }
+            
+            .schedule-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .schedule-time {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="student-info">
+                    <div class="student-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="student-details">
+                        <h1 id="studentName">Rahul Sharma</h1>
+                        <p id="studentInfo"><i class="fas fa-id-card"></i> Enrollment: 2024001 | Computer Science - 3rd Semester</p>
+                        <span class="badge"><i class="fas fa-check-circle"></i> Active Student</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="#" id="notificationBtn"><i class="fas fa-bell"></i> Notifications <span style="background: var(--danger); padding: 2px 8px; border-radius: 10px;">3</span></a>
+                    <a href="studentlogin.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>85%</h3>
+                        <p>Overall Attendance</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>6</h3>
+                        <p>Subjects</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>4</h3>
+                        <p>Pending Assignments</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>24</h3>
+                        <p>Classes This Week</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Left Column -->
+            <div>
+                <!-- Attendance Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-chart-line"></i> Subject-wise Attendance</h2>
+                        <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="attendance-list">
+                        <div class="attendance-item">
+                            <div class="subject-info">
+                                <h4>Data Structures</h4>
+                                <p>CS301 • Dr. Rajesh Kumar</p>
+                            </div>
+                            <div class="attendance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill good" style="width: 92%"></div>
+                                </div>
+                                <span class="attendance-percent good">92%</span>
+                            </div>
+                        </div>
+                        <div class="attendance-item">
+                            <div class="subject-info">
+                                <h4>Algorithms</h4>
+                                <p>CS302 • Dr. Priya Sharma</p>
+                            </div>
+                            <div class="attendance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill good" style="width: 88%"></div>
+                                </div>
+                                <span class="attendance-percent good">88%</span>
+                            </div>
+                        </div>
+                        <div class="attendance-item">
+                            <div class="subject-info">
+                                <h4>Database Management</h4>
+                                <p>CS303 • Prof. Amit Patel</p>
+                            </div>
+                            <div class="attendance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill warning" style="width: 75%"></div>
+                                </div>
+                                <span class="attendance-percent warning">75%</span>
+                            </div>
+                        </div>
+                        <div class="attendance-item">
+                            <div class="subject-info">
+                                <h4>Computer Networks</h4>
+                                <p>CS304 • Dr. Neha Singh</p>
+                            </div>
+                            <div class="attendance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill good" style="width: 94%"></div>
+                                </div>
+                                <span class="attendance-percent good">94%</span>
+                            </div>
+                        </div>
+                        <div class="attendance-item">
+                            <div class="subject-info">
+                                <h4>Operating Systems</h4>
+                                <p>CS305 • Prof. Vikram Mehta</p>
+                            </div>
+                            <div class="attendance-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill danger" style="width: 65%"></div>
+                                </div>
+                                <span class="attendance-percent danger">65%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Schedule -->
+                <div class="card" style="margin-top: 25px;">
+                    <div class="card-header">
+                        <h2><i class="fas fa-calendar-day"></i> Today's Schedule</h2>
+                        <a href="#" class="view-all">Full Timetable <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <div class="schedule-time">09:00 - 10:30</div>
+                            <div class="schedule-details">
+                                <h4>Data Structures</h4>
+                                <p>Dr. Rajesh Kumar • Room 401</p>
+                            </div>
+                            <div class="schedule-status status-upcoming">Upcoming</div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-time">11:00 - 12:30</div>
+                            <div class="schedule-details">
+                                <h4>Algorithms</h4>
+                                <p>Dr. Priya Sharma • Room 405</p>
+                            </div>
+                            <div class="schedule-status status-ongoing">Ongoing</div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-time">14:00 - 15:30</div>
+                            <div class="schedule-details">
+                                <h4>Database Management Lab</h4>
+                                <p>Prof. Amit Patel • Lab 3</p>
+                            </div>
+                            <div class="schedule-status status-upcoming">Upcoming</div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-time">16:00 - 17:30</div>
+                            <div class="schedule-details">
+                                <h4>Computer Networks</h4>
+                                <p>Dr. Neha Singh • Room 302</p>
+                            </div>
+                            <div class="schedule-status status-upcoming">Upcoming</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div>
+                <!-- Notice Board -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-bullhorn"></i> Notice Board</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="notice-list">
+                        <div class="notice-item">
+                            <h4>📢 Internal Exam Schedule Released</h4>
+                            <p>Check your exam dates for upcoming internal assessments</p>
+                            <span class="notice-date"><i class="far fa-clock"></i> 2 hours ago</span>
+                        </div>
+                        <div class="notice-item">
+                            <h4>🎓 Placement Drive - Google</h4>
+                            <p>Registration open for Google placement drive. Last date: March 25</p>
+                            <span class="notice-date"><i class="far fa-clock"></i> Yesterday</span>
+                        </div>
+                        <div class="notice-item">
+                            <h4>📅 Parent-Teacher Meeting</h4>
+                            <p>Schedule for upcoming parent-teacher meeting on March 30</p>
+                            <span class="notice-date"><i class="far fa-clock"></i> 2 days ago</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="card" style="margin-top: 25px;">
+                    <div class="card-header">
+                        <h2><i class="fas fa-link"></i> Quick Links</h2>
+                    </div>
+                    <div class="quick-links-grid">
+                        <a href="#" class="quick-link">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Fee Payment</span>
+                        </a>
+                        <a href="#" class="quick-link">
+                            <i class="fas fa-download"></i>
+                            <span>Study Material</span>
+                        </a>
+                        <a href="#" class="quick-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Academic Calendar</span>
+                        </a>
+                        <a href="#" class="quick-link">
+                            <i class="fas fa-book"></i>
+                            <span>Library</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subjects Section -->
+        <h2 style="font-size: 24px; color: var(--primary-dark); margin: 40px 0 20px;">
+            <i class="fas fa-book-open" style="color: var(--primary);"></i> Your Subjects
+        </h2>
+        <div class="subjects-grid">
+            <div class="subject-card">
+                <div class="subject-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Data Structures</h3>
+                <p>CS301 • 3 Credits</p>
+                <div class="subject-teacher">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Teacher">
+                    <span>Dr. Rajesh Kumar</span>
+                </div>
+            </div>
+            <div class="subject-card">
+                <div class="subject-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <h3>Algorithms</h3>
+                <p>CS302 • 4 Credits</p>
+                <div class="subject-teacher">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Teacher">
+                    <span>Dr. Priya Sharma</span>
+                </div>
+            </div>
+            <div class="subject-card">
+                <div class="subject-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>Database Management</h3>
+                <p>CS303 • 3 Credits</p>
+                <div class="subject-teacher">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Teacher">
+                    <span>Prof. Amit Patel</span>
+                </div>
+            </div>
+            <div class="subject-card">
+                <div class="subject-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3>Computer Networks</h3>
+                <p>CS304 • 3 Credits</p>
+                <div class="subject-teacher">
+                    <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Teacher">
+                    <span>Dr. Neha Singh</span>
+                </div>
+            </div>
+            <div class="subject-card">
+                <div class="subject-icon">
+                    <i class="fas fa-windows"></i>
+                </div>
+                <h3>Operating Systems</h3>
+                <p>CS305 • 4 Credits</p>
+                <div class="subject-teacher">
+                    <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Teacher">
+                    <span>Prof. Vikram Mehta</span>
+                </div>
+            </div>
+            <div class="subject-card">
+                <div class="subject-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>Software Engineering</h3>
+                <p>CS306 • 3 Credits</p>
+                <div class="subject-teacher">
+                    <img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Teacher">
+                    <span>Dr. Anjali Desai</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 GenX College. All rights reserved. | Student Dashboard</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load student data from session storage
+        document.addEventListener('DOMContentLoaded', function() {
+            const studentName = sessionStorage.getItem('studentName') || 'Rahul Sharma';
+            const studentId = sessionStorage.getItem('studentId') || '2024001';
+            const studentCourse = sessionStorage.getItem('studentCourse') || 'Computer Science';
+            const studentSemester = sessionStorage.getItem('studentSemester') || '3rd Semester';
+            
+            document.getElementById('studentName').textContent = studentName;
+            document.getElementById('studentInfo').innerHTML = `<i class="fas fa-id-card"></i> Enrollment: ${studentId} | ${studentCourse} - ${studentSemester}`;
+        });
+
+        // Notification button click
+        document.getElementById('notificationBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('📢 You have 3 new notifications:\n\n1. Internal Exam Schedule Released\n2. Placement Drive - Google\n3. Parent-Teacher Meeting on March 30');
+        });
+    </script>
+</body>
+</html>

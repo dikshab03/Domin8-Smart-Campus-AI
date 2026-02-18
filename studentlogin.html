@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - GenX College</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ===== PROFESSIONAL BLUE COLOR SCHEME ===== */
+        :root {
+            --primary: #1e4b8a;        /* Deep Navy Blue */
+            --primary-light: #2e6ab3;   /* Medium Blue */
+            --primary-dark: #0a2a4a;     /* Dark Navy */
+            --secondary: #4a90e2;        /* Sky Blue */
+            --accent: #64b5f6;           /* Light Blue */
+            --gradient-1: linear-gradient(135deg, #1e4b8a 0%, #4a90e2 100%);
+            --gradient-2: linear-gradient(135deg, #0a2a4a 0%, #1e4b8a 100%);
+            --bg-light: #f0f7ff;         /* Very Light Blue */
+            --bg-white: #ffffff;          /* White */
+            --text-dark: #1a2b3c;         /* Dark Blue-Gray */
+            --text-light: #5a6b7c;        /* Medium Gray-Blue */
+            --shadow: 0 10px 30px rgba(30, 75, 138, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--gradient-1);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: var(--bg-white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header i {
+            font-size: 70px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 50%;
+        }
+        
+        .login-header h2 {
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+            font-size: 28px;
+        }
+        
+        .login-header p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 18px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid rgba(30, 75, 138, 0.1);
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .input-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 75, 138, 0.1);
+        }
+        
+        .input-group input::placeholder {
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .login-btn i {
+            font-size: 16px;
+        }
+        
+        .demo-credentials {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            text-align: center;
+            border: 1px solid rgba(30, 75, 138, 0.1);
+        }
+        
+        .demo-credentials p {
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .demo-credentials strong {
+            color: var(--primary);
+            background: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .back-home:hover {
+            color: var(--primary);
+            transform: translateX(-5px);
+        }
+        
+        .back-home i {
+            margin-right: 5px;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+            padding: 10px;
+            background: #fdeaea;
+            border-radius: 8px;
+            border-left: 3px solid #e74c3c;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <i class="fas fa-user-graduate"></i>
+            <h2>Student Login</h2>
+            <p>Access your student portal</p>
+        </div>
+        
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <i class="fas fa-id-card"></i>
+                <input type="text" id="username" placeholder="Enrollment Number" required>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login to Portal
+            </button>
+            
+            <div id="errorMsg" class="error-message">
+                ❌ Invalid credentials! Please check your enrollment number and password.
+            </div>
+        </form>
+        
+        <div class="demo-credentials">
+            <p>🔑 Demo Credentials</p>
+            <p><strong>Enrollment: 2024001</strong> &nbsp; | &nbsp; <strong>Password: student123</strong></p>
+            <p style="font-size: 12px; margin-top: 8px; color: var(--text-light);">Use these credentials to test the dashboard</p>
+        </div>
+        
+        <a href="index.html" class="back-home">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            
+            // Hide any previous error
+            errorMsg.style.display = 'none';
+            
+            // Demo credentials check
+            if (username === '2024001' && password === 'student123') {
+                // Show success message
+                alert('✅ Login Successful! Welcome to Student Dashboard.');
+                
+                // Store student info in session storage
+                sessionStorage.setItem('studentId', username);
+                sessionStorage.setItem('studentName', 'Rahul Sharma');
+                sessionStorage.setItem('studentCourse', 'Computer Science');
+                sessionStorage.setItem('studentSemester', '3rd Semester');
+                
+                // ⭐⭐⭐ FIXED: Redirect to studentdashboard.html (without hyphen) ⭐⭐⭐
+                window.location.href = 'studentdashborad.html';
+            } else {
+                // Show error message
+                errorMsg.style.display = 'block';
+                
+                // Shake animation on error
+                document.querySelector('.login-container').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.querySelector('.login-container').style.animation = 'slideUp 0.5s';
+                }, 500);
+            }
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
